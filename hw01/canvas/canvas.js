@@ -3,7 +3,6 @@
 //HW1 -- Canvas
 //2016-02=10
 
-
 var c = document.getElementById("ftb2maga");
 var ctx = c.getContext("2d");
 
