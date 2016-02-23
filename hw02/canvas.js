@@ -29,11 +29,12 @@ var drawCircles = function drawCircles(event){
     context.arc(250,250,radius, 0, 7)
     context.closePath();
     context.fill();
+    context.fillText(radius,0,10);
     if (increase){
-	radius += 5 ;
+	radius += 1 ;
     }
     else{
-	radius -= 5;
+	radius -= 1;
     }
     if (draw){
 	window.requestAnimationFrame(drawCircles);
