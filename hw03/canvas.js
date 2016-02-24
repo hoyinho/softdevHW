@@ -16,12 +16,12 @@ var requestID;
 
 
 var logo = new Image();
-logo.src = "dvd.jpg";
+logo.src = "logo_dvd.jpg";
 
-var dvdX = 250;
-var dvdY = 250;
-var xVel = Math.sqrt(3)/2;
-var yVel = 1/2;
+var dvdX = 300;
+var dvdY = 200;
+var xVel; 
+var yVel;
 
 var radius = 0;
 var drawCircles = function drawCircles(event){
@@ -49,21 +49,16 @@ var drawCircles = function drawCircles(event){
     requestID = window.requestAnimationFrame(drawCircles);
 }
 
+
 var drawDVD = function drawDVD(event){
     context.clearRect(0,0,500,500);
     context.drawImage(logo,dvdX,dvdY,50,50);
     dvdX += xVel;
-    dvdY += yVel;
-    if (dvdX >= 440){
+    dvdY += yVel;  
+    if (dvdX >= 440 || dvdX <=10){
 	xVel *= -1;
     }
-    if (dvdY >= 440){
-	yVel *= -1;
-    }
-    if (dvdX <= 10){
-	xVel *= -1;
-    }
-    if (dvdY <= 10){
+    if (dvdY >= 440 || dvdY <= 10){
 	yVel *= -1;
     }
     requestID = window.requestAnimationFrame(drawDVD);
@@ -75,7 +70,12 @@ var drawDVD = function drawDVD(event){
 
 
 button.addEventListener("click", drawCircles);
-dvd.addEventListener("click", drawDVD);
+dvd.addEventListener("click", function(e){
+    xVel = Math.random() * 0.5 + 0.5;
+    yVel = Math.random() * 0.5 + 0.5;
+    console.log(xVel + " " + yVel);
+    drawDVD();
+});
 stop.addEventListener("click",function(e){
     cancelAnimationFrame(requestID);
 });
