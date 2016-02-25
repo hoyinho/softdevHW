@@ -18,10 +18,6 @@ var requestID;
 var logo = new Image();
 logo.src = "logo_dvd.jpg";
 
-var dvdX = 300;
-var dvdY = 200;
-var xVel; 
-var yVel;
 
 var radius = 0;
 var drawCircles = function drawCircles(event){
@@ -49,33 +45,36 @@ var drawCircles = function drawCircles(event){
     requestID = window.requestAnimationFrame(drawCircles);
 }
 
+var startDVD = function startDVD(event){
+    var dvdX = 300;
+    var dvdY = 200;
+    var xVel; 
+    var yVel;
+    xVel = Math.random() * 0.5 + 0.5;
+    yVel = Math.random() * 0.5 + 0.5;
+    var drawDVD = function drawDVD(){
+	context.clearRect(0,0,500,500);
+	context.drawImage(logo,dvdX,dvdY,50,50);
+	dvdX += xVel;
+	dvdY += yVel;  
+	if (dvdX >= 440 || dvdX <=10){
+	    xVel *= -1;
+	}
+	if (dvdY >= 440 || dvdY <= 10){
+	    yVel *= -1;
+	}
+	requestID = window.requestAnimationFrame(drawDVD);
+    }    
+    drawDVD();
+}
 
-var drawDVD = function drawDVD(event){
-    context.clearRect(0,0,500,500);
-    context.drawImage(logo,dvdX,dvdY,50,50);
-    dvdX += xVel;
-    dvdY += yVel;  
-    if (dvdX >= 440 || dvdX <=10){
-	xVel *= -1;
-    }
-    if (dvdY >= 440 || dvdY <= 10){
-	yVel *= -1;
-    }
-    requestID = window.requestAnimationFrame(drawDVD);
-}    
-	
 	
     
 
 
 
 button.addEventListener("click", drawCircles);
-dvd.addEventListener("click", function(e){
-    xVel = Math.random() * 0.5 + 0.5;
-    yVel = Math.random() * 0.5 + 0.5;
-    console.log(xVel + " " + yVel);
-    drawDVD();
-});
+dvd.addEventListener("click",startDVD);
 stop.addEventListener("click",function(e){
     cancelAnimationFrame(requestID);
 });
