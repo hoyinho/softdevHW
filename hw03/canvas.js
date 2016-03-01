@@ -7,7 +7,7 @@
 var canvas = document.getElementById("canvas");
 var context = canvas.getContext("2d");
 
-var button = document.getElementById("start");
+var circle = document.getElementById("circle");
 var stop = document.getElementById("stop");
 var dvd = document.getElementById("dvd");
 
@@ -20,36 +20,41 @@ logo.src = "logo_dvd.jpg";
 
 
 var radius = 0;
-var drawCircles = function drawCircles(event){
-    context.clearRect(0,0,500,500);
-    console.log("here");
-    if (radius == 240){
-	increase = false;
+var startCircle = function startCircle(event){
+    cancelAnimationFrame(requestID);
+    var drawCircles = function drawCircles(){
+	context.clearRect(0,0,500,500);
+	console.log("here");
+	if (radius == 240){
+	    increase = false;
+	}
+	if (radius == 0){
+	    increase = true;
+	}
+	context.beginPath();
+	context.fillStyle = "red";
+	console.log(radius);
+	context.arc(250,250,radius, 0, 7)
+	context.closePath();
+	context.fill();
+	context.fillText(radius,0,10);
+	if (increase){
+	    radius += 1 ;
+	}
+	else{
+	    radius -= 1;
+	}
+	requestID = window.requestAnimationFrame(drawCircles);
     }
-    if (radius == 0){
-	increase = true;
-    }
-    context.beginPath();
-    context.fillStyle = "red";
-    console.log(radius);
-    context.arc(250,250,radius, 0, 7)
-    context.closePath();
-    context.fill();
-    context.fillText(radius,0,10);
-    if (increase){
-	radius += 1 ;
-    }
-    else{
-	radius -= 1;
-    }
-    requestID = window.requestAnimationFrame(drawCircles);
+    drawCircles();
 }
 
+var dvdX = 300;
+var dvdY = 200;
+var xVel; 
+var yVel;
 var startDVD = function startDVD(event){
-    var dvdX = 300;
-    var dvdY = 200;
-    var xVel; 
-    var yVel;
+    window.cancelAnimationFrame(requestID);
     xVel = Math.random() * 0.5 + 0.5;
     yVel = Math.random() * 0.5 + 0.5;
     var drawDVD = function drawDVD(){
@@ -73,7 +78,7 @@ var startDVD = function startDVD(event){
 
 
 
-button.addEventListener("click", drawCircles);
+circle.addEventListener("click", startCircle);
 dvd.addEventListener("click",startDVD);
 stop.addEventListener("click",function(e){
     cancelAnimationFrame(requestID);
