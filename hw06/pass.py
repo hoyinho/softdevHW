@@ -1,8 +1,4 @@
 def passChecker(pw):
-    upper = False
-    lower = False
-    other = False
-    numbers = False
     upperC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     lowerC = "abcdefghijklmnopqrstuvwxyz"
     numbers = "1234567890"
