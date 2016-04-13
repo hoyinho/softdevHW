@@ -20,8 +20,6 @@ def get_function(fn):
     return inner1
     
 @app.route("/")
-@timer
-@get_function
 def index():
     return render_template("index.html")
 
